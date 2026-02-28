@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Bulk Repository Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div class="app-wrapper">
+      <!-- App Bar -->
+      <header class="app-bar">
+        <div class="app-bar-inner">
+          <div class="app-bar-brand">
+            <div class="logo-icon">
+              <i class="fa-solid fa-box-archive"></i>
+            </div>
+            <h1>Repo<span>Manager</span></h1>
+          </div>
+          <div class="app-bar-actions">
+            <button
+              id="disconnectBtn"
+              class="icon-btn hidden"
+              aria-label="Disconnect"
+            >
+              <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- AUTH SECTION -->
+      <main id="authSection" class="auth-section">
+        <div class="auth-container">
+          <!-- Left Pane: Info -->
+          <div class="auth-info-pane">
+            <div class="app-bar-brand" style="margin-bottom: 40px">
+              <div class="logo-icon" style="width: 48px; height: 48px">
+                <i class="fa-solid fa-warehouse" style="font-size: 1.75rem"></i>
+              </div>
+              <h2
+                style="
+                  font-size: 1.5rem;
+                  margin-bottom: 0;
+                  background: none;
+                  -webkit-text-fill-color: initial;
+                "
+              >
+                Repo<span>Manager</span>
+              </h2>
+            </div>
+
+            <h2>Kelola Repositori GitHub <span>Secara Masal</span>.</h2>
+            <p>
+              Hapus proyek yang tidak terpakai, dan atur
+              ruang kerja digital Anda dengan aman dan cepat.
+            </p>
+
+            <div class="feature-list">
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="feature-text">
+                  <h4>Keamanan Terjamin</h4>
+                  <p>
+                    Token Anda hanya disimpan di memori browser. Kami tidak
+                    memiliki server penyimpanan data.
+                  </p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div class="feature-text">
+                  <h4>Penghapusan Masal</h4>
+                  <p>
+                    Hapus banyak repositori sekaligus tanpa perlu konfirmasi
+                    satu per satu di GitHub.
+                  </p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="fa-solid fa-code"></i>
+                </div>
+                <div class="feature-text">
+                  <h4>Open Source</h4>
+                  <p>
+                    Seluruh kode sumber tersedia dan dapat dikembangkan sesuai
+                    kebutuhan. Aplikasi dapat dijalankan di lingkungan lokal
+                    (local development) maupun hosting
+                    pribadi Anda.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Pane: Form -->
+          <div class="auth-form-pane">
+            <div class="auth-card">
+              <div
+                class="auth-header"
+                style="text-align: left; margin-bottom: 40px"
+              >
+                <h3 style="font-size: 1.8rem; margin-bottom: 8px">
+                  Hubungkan Akun
+                </h3>
+                <p>Masukkan Token Akses Pribadi Anda untuk memuat dasbor.</p>
+              </div>
+
+              <div
+                class="token-notice"
+                style="
+                  background: rgba(245, 158, 11, 0.1);
+                  border: 1px solid rgba(245, 158, 11, 0.2);
+                  color: var(--accent);
+                  padding: 16px;
+                "
+              >
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span
+                  >Pastikan Anda memberikan cakupan
+                  <code>delete_repo</code> jika Anda bermaksud untuk menghapus
+                  repositori.</span
+                >
+              </div>
+
+              <div class="input-group">
+                <label for="usernameInput">Nama Pengguna GitHub</label>
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    id="usernameInput"
+                    placeholder="username"
+                    autocomplete="username"
+                    spellcheck="false"
+                    style="
+                      background: rgba(15, 23, 42, 0.5);
+                      border-color: var(--outline-variant);
+                    "
+                  />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="tokenInput">Token Akses Pribadi</label>
+                <div class="input-wrapper">
+                  <input
+                    type="password"
+                    id="tokenInput"
+                    placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                    autocomplete="off"
+                    spellcheck="false"
+                    style="
+                      background: rgba(15, 23, 42, 0.5);
+                      border-color: var(--outline-variant);
+                    "
+                  />
+                  <button
+                    class="toggle-vis"
+                    id="toggleTokenBtn"
+                    aria-label="Tampilkan token"
+                  >
+                    <i class="fa-solid fa-eye"></i>
+                  </button>
+                </div>
+                <div style="text-align: right; margin-top: 8px">
+                  <a
+                    href="https://github.com/settings/tokens"
+                    target="_blank"
+                    style="
+                      font-size: 0.75rem;
+                      color: var(--primary);
+                      text-decoration: underline;
+                    "
+                    >Bagaimana cara mendapatkan ini?</a
+                  >
+                </div>
+              </div>
+
+              <button
+                id="connectBtn"
+                class="btn btn-filled auth-btn"
+                style="
+                  height: 54px;
+                  font-size: 1rem;
+                  gap: 12px;
+                  background: var(--primary);
+                "
+              >
+                <span>Muat Repositori</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+
+              <div id="authError" class="auth-error hidden">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span id="authErrorText"></span>
+              </div>
+
+              <div
+                style="
+                  margin-top: 40px;
+                  padding-top: 24px;
+                  border-top: 1px solid var(--outline-variant);
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                "
+              >
+                <div
+                  style="
+                    font-size: 0.75rem;
+                    color: var(--on-surface-variant);
+                    opacity: 0.7;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                  "
+                >
+                  <i class="fa-solid fa-scale-balanced"></i> Lisensi MIT &bull;
+                  <i class="fa-brands fa-github"></i> Source Code
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- DASHBOARD SECTION -->
+      <section id="dashboardSection" class="dashboard-section hidden">
+        <div class="container">
+          <!-- Bar Pengguna -->
+          <div class="user-bar">
+            <div class="user-avatar">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="user-info">
+              <div class="user-name" id="userDisplayName">—</div>
+              <div class="user-login" id="userLoginName">@—</div>
+            </div>
+            <button
+              class="btn btn-outlined"
+              id="refreshBtn"
+              style="margin-left: auto; border-radius: var(--radius-md)"
+            >
+              <i class="fa-solid fa-arrows-rotate"></i>
+              Segarkan
+            </button>
+          </div>
+
+          <!-- Statistik -->
+          <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+              <div class="stat-value" id="statTotal">0</div>
+              <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statPublic">0</div>
+              <div class="stat-label">Publik</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="statPrivate">0</div>
+              <div class="stat-label">Privat</div>
+            </div>
+            <div class="stat-card stat-selected">
+              <div class="stat-value" id="statSelected">0</div>
+              <div class="stat-label">Terpilih</div>
+            </div>
+          </div>
+
+          <!-- Toolbar -->
+          <div class="toolbar">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Cari repositori..."
+              />
+            </div>
+            <select id="filterSelect" class="filter-select">
+              <option value="all">Semua repo</option>
+              <option value="public">Publik</option>
+              <option value="private">Privat</option>
+            </select>
+            <select id="sortSelect" class="filter-select">
+              <option value="updated-desc">Baru diperbarui</option>
+              <option value="updated-asc">Paling lama diperbarui</option>
+              <option value="name-asc">Nama A → Z</option>
+              <option value="name-desc">Nama Z → A</option>
+              <option value="stars-desc">Paling banyak bintang</option>
+            </select>
+            <div class="toolbar-actions">
+              <label class="check-label hidden" id="selectAllLabel">
+                <input type="checkbox" id="selectAllCheck" />
+                <span class="check-box"><i class="fa-solid fa-check"></i></span>
+                Pilih semua
+              </label>
+              <button class="btn btn-tonal" id="exportCsvBtn">
+                <i class="fa-solid fa-download"></i>
+                Ekspor CSV
+              </button>
+            </div>
+          </div>
+
+          <!-- Model bahaya -->
+          <div class="danger-bar" id="dangerBar">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span class="danger-text"
+              >Aktifkan <strong>Mode Bahaya</strong> untuk memilih &amp;
+              menghapus repositori. Tindakan ini tidak dapat dibatalkan.</span
+            >
+            <label class="toggle-switch">
+              <input type="checkbox" id="dangerToggle" />
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <!-- Repo grid -->
+          <div id="repoGrid" class="repo-grid"></div>
+
+          <!-- Skeleton loading -->
+          <div id="skeletonGrid" class="repo-grid hidden">
+            <!-- filled by JS -->
+          </div>
+
+          <!-- Keadaan kosong -->
+          <div id="emptyState" class="empty-state hidden">
+            <i class="fa-solid fa-folder-open"></i>
+            <h3>Repositori tidak ditemukan</h3>
+            <p>Coba sesuaikan pencarian atau kriteria filter Anda.</p>
+          </div>
+
+          <!-- Muat lebih banyak -->
+          <div id="loadMoreWrapper" class="load-more-wrapper hidden">
+            <button class="btn btn-tonal" id="loadMoreBtn">
+              <i class="fa-solid fa-chevron-down"></i>
+              Muat lebih banyak
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Floating action bar -->
+      <div id="floatingBar" class="floating-bar hidden">
+        <span class="float-count"><span id="floatCount">0</span> terpilih</span>
+        <button
+          class="btn btn-tonal"
+          id="deselectAllBtn"
+          style="border-radius: var(--radius-md)"
+        >
+          <i class="fa-solid fa-square-xmark"></i>
+          Batalkan Pilihan
+        </button>
+        <button
+          class="btn btn-danger"
+          id="deleteSelectedBtn"
+          style="border-radius: var(--radius-md)"
+        >
+          <i class="fa-solid fa-trash"></i>
+          Hapus
+        </button>
+      </div>
+    </div>
+
+    <!-- MODAL HAPUS (Langkah 1: Review) -->
+    <div id="deleteModal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <!-- Langkah 1 -->
+        <div id="deleteStep1">
+          <h3>
+            <i
+              class="fa-solid fa-triangle-exclamation"
+              style="color: var(--error)"
+            ></i>
+            Konfirmasi Penghapusan
+          </h3>
+          <p>
+            Anda akan <strong>menghapus secara permanen</strong> repositori
+            berikut. Tindakan ini <strong>tidak dapat dibatalkan</strong>.
+          </p>
+          <div class="delete-repo-list" id="deleteRepoList"></div>
+          <div class="warning-box">
+            <i class="fa-solid fa-skull-crossbones"></i>
+            <span
+              >Semua kode, issue, pull request, dan pengaturan akan hilang
+              selamanya.</span
+            >
+          </div>
+          <div class="modal-actions">
+            <button class="btn btn-tonal" id="cancelDeleteBtn">Batal</button>
+            <button class="btn btn-danger" id="continueDeleteBtn">
+              Lanjutkan <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Langkah 2 -->
+        <div id="deleteStep2" class="hidden">
+          <h3>
+            <i
+              class="fa-solid fa-shield-halved"
+              style="color: var(--error)"
+            ></i>
+            Konfirmasi Akhir
+          </h3>
+          <p>
+            Untuk mengonfirmasi, ketik
+            <strong class="mono" style="color: var(--error)">HAPUS</strong> di
+            bawah ini. Ini akan menghapus secara permanen
+            <strong id="deleteCountFinal">0</strong> repositori.
+          </p>
+          <div class="confirm-input-group">
+            <label>Ketik <strong>HAPUS</strong> untuk mengonfirmasi:</label>
+            <input
+              type="text"
+              id="confirmDeleteInput"
+              class="input-field"
+              placeholder="HAPUS"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </div>
+          <div class="modal-actions">
+            <button class="btn btn-tonal" id="backDeleteBtn">
+              <i class="fa-solid fa-arrow-left"></i>
+              Kembali
+            </button>
+            <button class="btn btn-danger" id="finalDeleteBtn" disabled>
+              <i class="fa-solid fa-trash-can"></i>
+              Hapus Selamanya
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRESS MODAL -->
+    <div id="progressModal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <h3>
+          <i
+            class="fa-solid fa-arrows-rotate"
+            style="color: var(--primary)"
+          ></i>
+          Menghapus Repositori...
+        </h3>
+        <p id="progressSubtext">Harap jangan tutup jendela ini.</p>
+        <div class="progress-wrapper">
+          <div class="progress-bar-track">
+            <div
+              class="progress-bar-fill striped"
+              id="progressFill"
+              style="width: 0%"
+            ></div>
+          </div>
+          <div class="progress-text" id="progressText">0 / 0</div>
+        </div>
+        <div class="progress-log" id="progressLog"></div>
+      </div>
+    </div>
+
+    <!-- RESULTS MODAL -->
+    <div id="resultsModal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <h3>
+          <i class="fa-solid fa-circle-check" style="color: var(--primary)"></i>
+          Penghapusan Selesai
+        </h3>
+        <div class="results-summary" id="resultsSummary"></div>
+        <div class="progress-log" id="resultsLog"></div>
+        <div class="modal-actions">
+          <button class="btn btn-tonal hidden" id="retryFailedBtn">
+            <i class="fa-solid fa-arrows-rotate"></i>
+            Coba Lagi yang Gagal
+          </button>
+          <button class="btn btn-filled" id="doneResultsBtn">Selesai</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SNACKBAR -->
+    <div id="snackbar" class="snackbar snack-info"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
